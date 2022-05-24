@@ -18,14 +18,12 @@ function clearAll() {
 }
 
 function negativeNumber() {
-
   if (a !== '' && b === '') {
     a = '-' + a;
     out.textContent = a;
-    return console.log(a);
   } else if (a !== '' && b !== '') {
     b = '-' + b;
-    return out.textContent = b, console.log(b);
+    return out.textContent = b;
   }
 }
 
@@ -46,48 +44,35 @@ document.querySelector('.buttons').onclick = (event) => {
   if (finish) {
     finish = false;
   }
-  //проверка кликнутого числа и его заполнение табло 
+  
   if (digits.includes(key)) {
-    // заполнение нового числа после расчета
     if (a === Number(a) && b === '' && sign === '') {
       a = '';
       a += key;
       out.textContent = a
-    }
-    // заполнение первого числа
-    else if (b === '' && sign === '') {
+    } else if (b === '' && sign === '') {
       a += key;
       out.textContent = a
-      console.log(a, b, sign);
-    }
-    // если удалить ничего не измениться, калькулятор работает (хз почему - разобраться!)
-    else if (a !== '' && b !== '' && finish) {
+    } else if (a !== '' && b !== '' && finish) {
       b = key;
       finish = false;
       out.textContent = b;
-      console.log(a, b, sign, finish);
-    }
-    // заполнения второго числа
-    else {
-      b += key
+    } else {
+      b += key;
       out.textContent = b;
-      console.log(a, b, sign);
     }
   }
-  // проверка кликнутого знака в калькуляторе
+
   if (actions.includes(key)) {
-    // проверяем, чтобы знак не вносился когда ничего не было введено
     if (a === '' && b === '') {
       sign = '';
       out.textContent = 0;
-      console.log(a, b, sign)
     } else {
       sign = key;
-      out.textContent = sign
-      console.log(a, b, sign)
+      out.textContent = sign;
     }
   }
-  // вычисление при нажатии =
+  
   if (key === '=') {
     switch (sign) {
       case '+':
@@ -102,21 +87,16 @@ document.querySelector('.buttons').onclick = (event) => {
       case '/':
         a = a / b;
         break;
-      // число в степени 2
       case '':
         a = +a + +a
         break;
-      //процент от второго числа (пример: 12 это 40 процентов от числа 30)
       case '%':
         a = +a / +b * 100;
-        console.log(a, b, sign)
         break;
     }
-    //после нажатия на = обнуляем b и sign, чтобы потом их снова заполнять новыми числами + вывод результата на дисплей из переменной a
     finish = true;
     out.textContent = a;
     b = '';
     sign = '';
-    console.log(a, b, sign);
   }
 }
